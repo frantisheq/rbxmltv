@@ -347,7 +347,7 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
               end
 
               description&.genres.each do |g|
-                category g, "lang": 'cz'
+                category g.capitalize, "lang": 'cz'
 
                 case g
                 when 'dobrodružný'
