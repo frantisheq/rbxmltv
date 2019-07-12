@@ -391,9 +391,9 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
 
               date description.year unless description.year.nil?
 
-              description&.country.split(%r{\/|\,\s}).each do |g|
-                country g, "lang": 'cz'
-              end
+              description.country.split(/\/|\,\s/).each do |g|
+                country g, :"lang" => "cz"
+              end if description.country != nil
 
               episode_num show_episode, "system": 'xmltv_ns' unless show_episode.nil?
 
