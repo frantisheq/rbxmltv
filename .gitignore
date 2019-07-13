@@ -1,4 +1,5 @@
 .idea/*
+rbxmltv-data/*
 !.gitignore
 .DS_Store
 wanted_channels.xml
