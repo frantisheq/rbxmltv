@@ -17,6 +17,7 @@ require 'days_and_times'
 require 'ruby-progressbar'
 require 'fileutils'
 require 'unidecoder'
+require 'xz'
 
 # :nodoc:
 class HTTPCache
@@ -443,3 +444,7 @@ end
 f = File.open(options.path, 'w')
 f.write(builder.to_xml.gsub(/_/, '-').gsub(%r{.*<credits\/>\n|\srole=""}, ''))
 f.close
+
+# Compress for Enigma2
+XZ.compress_file("#{options.path}", "#{options.path}.xz")
+
