@@ -1,0 +1,17 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "7 days",
+            "type": "shell",
+            "command": "./main.rb -d 7 -o ./rbxmltv-data/cz-sk.xml -c ./rbxmltv-data/cache"
+        },
+        {
+            "label": "1 day",
+            "type": "shell",
+            "command": "./main.rb -d 1 -o ./rbxmltv-data/cz-sk.xml -c ./rbxmltv-data/cache"
+        }
+    ]
+}
