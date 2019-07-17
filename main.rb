@@ -255,7 +255,10 @@ progress_bar = ProgressBar.create(format: "%a %p%% %b\u{15E7}%i %t", \
 builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
   tv '', "generator-info-name": "rbxmltv", "generator-info-url": "http://www.somesite.eu/" do
     Channels.parse(File.read("wanted_channels.xml")).each do |channel|
-      channel '', "id": channel.id + '-' + channel.name.downcase.to_ascii.gsub(/\s|\./, '-').gsub(/\:|\(|\)|\!/, '').gsub(/\+/, 'plus') do
+
+      channel.id = channel.id + '-' + channel.name.downcase.to_ascii.gsub(/\s|\./, '-').gsub(/\:|\(|\)|\!/, '').gsub(/\+/, 'plus')
+
+      channel '', "id": channel.id do
         display_name channel.name, "lang": 'cz'
         icon '', "src": logo_address + channel.logo
       end
@@ -266,8 +269,13 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
       progress_bar.title = channel.name
       progress_bar.increment
 
+      channelcombined = channel.id + '-' + channel.name.downcase.to_ascii.gsub(/\s|\./, '-').gsub(/\:|\(|\)|\!/, '').gsub(/\+/, 'plus')
+
       # combine CT :D and CT Art
-      channel.id = '804' if channel.id == '805'
+      channelcombined = '804-ct-art' if channel.id == '805'
+
+      # combine CS Film and CS Mini
+      channelcombined = '1149-cs-film' if channel.id == '1150'
 
       for i in 1..options.days.to_i do
         begin
@@ -317,7 +325,7 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
 
             programme '', "start": description.start.gsub(/[^0-9]/,'') + ' +0200', \
                           "stop": description.stop.gsub(/[^0-9]/,'') + ' +0200', \
-                          "channel": channel.id + '-' + channel.name.downcase.to_ascii.gsub(/\s|\./, '-').gsub(/\:|\(|\)|\!/, '').gsub(/\+/, 'plus') do
+                          "channel": channelcombined do
               title description.title.gsub(%r{\s(\(R\)|\/R\/|\(P\)|\/P\/)}, ''), "lang": 'cz'
 
               sub_title description.subtitle, "lang": 'cz' unless description.subtitle.nil?
