@@ -205,7 +205,7 @@ end
 
 list = channels_file #.search('s p:contains("Slovenské")').map(&:parent)
 
-list.xpath("//a[p!='Slovenské' and p!='České' and p!='Ostatní']").remove
+list.xpath("//a[p!='Slovenské' and p!='České' and p!='Ostatní' and p!='Anglické']").remove
 
 wanted_channels = File.open("wanted_channels.xml", 'w')
 wanted_channels.write(list.to_xml(:indent => 2))
