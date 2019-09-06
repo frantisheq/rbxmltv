@@ -17,7 +17,7 @@ jobs:
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
-        gem install nokogiri mechanize days_and_times ruby-progressbar file-utils roman-numerals nokogiri-happymapper unidecoder ruby-xz
+        gem install nokogiri mechanize days_and_times ruby-progressbar file-utils roman-numerals nokogiri-happymapper unidecoder ruby-xz --no-rdoc --no-ri
         git config --global user.email "frantisheq@gmail.com"
         git config --global user.name "Jan Dula"
         git clone https://frantisheq:${{ secrets.GitHubPassword }}@github.com/frantisheq/rbxmltv-data.git -b master
