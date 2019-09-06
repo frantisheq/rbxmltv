@@ -18,6 +18,7 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
         gem install doc
+        gem install rdoc
         gem install nokogiri mechanize days_and_times ruby-progressbar file-utils roman-numerals nokogiri-happymapper unidecoder ruby-xz
         git config --global user.email "frantisheq@gmail.com"
         git config --global user.name "Jan Dula"
