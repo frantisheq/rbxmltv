@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  schedule:
+  - cron: 0 2 * * *
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+        gem install nokogiri mechanize days_and_times ruby-progressbar file-utils roman-numerals nokogiri-happymapper unidecoder ruby-xz
+        git config --global user.email "frantisheq@gmail.com"
+        git config --global user.name "Jan Dula"
+        git clone https://frantisheq:${{ secrets.GitHubPassword }}@github.com/frantisheq/rbxmltv-data.git -b master
+        ./main.rb -d 8 -o ./rbxmltv-data/cz-sk.xml -c ./rbxmltv-data/cache
+        cd rbxmltv-data
+        rm -f frantisheq.channels.xml.xz
+        xz -z -9 -k frantisheq.channels.xml
+        git add -A
+        git commit --amend -am "add cz-sk.xml"
+        git push --force
