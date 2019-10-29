@@ -323,8 +323,8 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
               show_episode = nil
             end
 
-            programme '', "start": description.start.gsub(/[^0-9]/,'') + ' +0200', \
-                          "stop": description.stop.gsub(/[^0-9]/,'') + ' +0200', \
+            programme '', "start": description.start.gsub(/[^0-9]/,'') + ' +0100', \
+                          "stop": description.stop.gsub(/[^0-9]/,'') + ' +0100', \
                           "channel": channelcombined do
               title description.title.gsub(%r{\s(\(R\)|\/R\/|\(P\)|\/P\/)}, ''), "lang": 'cz'
 
