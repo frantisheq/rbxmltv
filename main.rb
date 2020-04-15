@@ -404,7 +404,7 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
                 country g, :"lang" => "cz"
               end if description.country != nil
 
-              episode_num show_episode, "system": 'xmltv-ns' unless show_episode.nil?
+              episode_num show_episode, "system": 'xmltv_ns' unless show_episode.nil?
 
               rating '' do value description.rating end unless description.rating.nil?
 
