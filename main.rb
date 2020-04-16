@@ -198,6 +198,9 @@ HTTPCache.new(options.cache).clean
 base_url = 'http://programandroid.365dni.cz/android/'
 cachedir = options.cache
 
+# update list of available channels
+FileUtils.rm "#{cachedir}/channels.xml"
+
 HTTPCache.new(cachedir).get(base_url + 'v5-tv.php?locale=cz', 'channels.xml')
 channels_file = Nokogiri::XML File.read("#{cachedir}/channels.xml") do |content|
   content.strict.noblanks # .css("p[p='Ostatní'] item")
