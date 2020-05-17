@@ -82,7 +82,8 @@ class OptparseExample
     # The options specified on the command line will be collected in *options*.
     # We set default values here.
     options = OpenStruct.new
-    options.days = 7
+    options.days = 1
+    options.timezone = "+0100"
     options.path = nil
     options.cache = File.expand_path(File.join(ENV['HOME'], '/.rbxmltv-cache'))
 
@@ -92,21 +93,27 @@ class OptparseExample
       opts.separator ''
       opts.separator 'Specific options:'
 
-      # Mandatory argument.
+      # Optional argument.
       opts.on('-d', '--days n',
-              'Build guide for n days. Defaults to 7') do |lib|
+              'Build guide for n days. Defaults to 1.') do |lib|
         options.days = lib
+      end
+
+      # Optional argument.
+      opts.on('-t', '--timezone +0100',
+            'Specify timezone, for example +0200. Specified text will be appended to xmltv channel ID (2-ct1+0200). Defaults to +0100.') do |tz|
+        options.timezone = tz
       end
 
       # Optional argument; multi-line description.
       opts.on('-o', '--output [PATH]',
-              'Define output file name') do |ext|
+              'Define output file name.') do |ext|
         options.path = ext
       end
 
       # Optional argument; multi-line description.
       opts.on('-c', '--cache [PATH]',
-              'Define cache directory') do |ca|
+              'Define cache directory.') do |ca|
         options.cache = ca
       end
 
@@ -259,7 +266,7 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
   tv '', "generator-info-name": "rbxmltv", "generator-info-url": "http://www.somesite.eu/" do
     Channels.parse(File.read("wanted_channels.xml")).each do |channel|
 
-      channel.id = channel.id + '-' + channel.name.downcase.to_ascii.gsub(/\s|\./, '-').gsub(/\:|\(|\)|\!/, '').gsub(/\+/, 'plus')
+      channel.id = channel.id + '-' + channel.name.downcase.to_ascii.gsub(/\s|\./, '-').gsub(/\:|\(|\)|\!/, '').gsub(/\+/, 'plus') + options.timezone
 
       channel '', "id": channel.id do
         display_name channel.name, "lang": 'cz'
@@ -326,9 +333,9 @@ builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do
               show_episode = nil
             end
 
-            programme '', "start": description.start.gsub(/[^0-9]/,'') + ' +0200', \
-                          "stop": description.stop.gsub(/[^0-9]/,'') + ' +0200', \
-                          "channel": channelcombined do
+            programme '', "start": description.start.gsub(/[^0-9]/,'') + " #{options.timezone}", \
+                          "stop": description.stop.gsub(/[^0-9]/,'') + " #{options.timezone}", \
+                          "channel": channelcombined + options.timezone do
               title description.title.gsub(%r{\s(\(R\)|\/R\/|\(P\)|\/P\/)}, ''), "lang": 'cz'
 
               sub_title description.subtitle, "lang": 'cz' unless description.subtitle.nil?

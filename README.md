@@ -1,6 +1,6 @@
 xmltv parser in ruby
 
-install ruby 2.0+
+Install ruby 2.0+
 
 gem install nokogiri mechanize days_and_times ruby-progressbar file-utils
 
@@ -13,5 +13,13 @@ cd rbxmltv
 
 git clone https://github.com/frantisheq/rbxmltv-data.git
 
-./main.rb -d 7 -o ./rbxmltv-data/cz-sk.xml -c ./rbxmltv-data/cache
 
+
+To generate a file named cz-sk+0100.xml for 7 days with +0100 timezone and cache being used:
+
+./main.rb -d 7 -t +0100 -o ./rbxmltv-data/cz-sk+0100.xml -c ./rbxmltv-data/cache
+
+
+Timezone argument will be appended to xmltv channel id. Default value is set to +0100.
+
+Use ./main.rb -h for help.
