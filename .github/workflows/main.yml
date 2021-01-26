@@ -27,9 +27,9 @@ jobs:
         git config --global user.email "frantisheq@gmail.com"
         git config --global user.name "Jan Dula"
         git clone https://frantisheq:${{ secrets.GitHubPassword }}@github.com/frantisheq/rbxmltv-data.git -b master
-        ./main.rb -d 4 -t +0200 -o ./rbxmltv-data/cz-sk+0200.xml -c ./rbxmltv-data/cache
-        ./main.rb -d 4 -t +0100 -o ./rbxmltv-data/cz-sk+0100.xml -c ./rbxmltv-data/cache
-        ./main.rb -d 4 -t +0000 -o ./rbxmltv-data/cz-sk+0000.xml -c ./rbxmltv-data/cache
+        ./main.rb -d 6 -t +0200 -o ./rbxmltv-data/cz-sk+0200.xml -c ./rbxmltv-data/cache
+        ./main.rb -d 6 -t +0100 -o ./rbxmltv-data/cz-sk+0100.xml -c ./rbxmltv-data/cache
+        ./main.rb -d 6 -t +0000 -o ./rbxmltv-data/cz-sk+0000.xml -c ./rbxmltv-data/cache
         cd rbxmltv-data
         rm -f frantisheq.channels.xml.xz
         xz -z -9 -k frantisheq.channels.xml
