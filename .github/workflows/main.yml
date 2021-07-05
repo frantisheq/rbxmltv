@@ -26,7 +26,7 @@ jobs:
         gem install nokogiri mechanize days_and_times ruby-progressbar file-utils roman-numerals nokogiri-happymapper unidecoder ruby-xz
         git config --global user.email "frantisheq@gmail.com"
         git config --global user.name "Jan Dula"
-        git clone https://frantisheq:${{ secrets.GitHubPassword }}@github.com/frantisheq/rbxmltv-data.git -b master
+        git clone https://${{ secrets.TOKEN }}@github.com/frantisheq/rbxmltv-data.git -b master
         ./main.rb -d 2 -t +0200 -o ./rbxmltv-data/cz-sk+0200.xml -c ./rbxmltv-data/cache
         ./main.rb -d 2 -t +0100 -o ./rbxmltv-data/cz-sk+0100.xml -c ./rbxmltv-data/cache
         ./main.rb -d 2 -t +0000 -o ./rbxmltv-data/cz-sk+0000.xml -c ./rbxmltv-data/cache
